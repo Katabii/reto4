@@ -1,5 +1,5 @@
 <?php
-// header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=ISO-8859-1');
 require_once ('lib/nusoap.php');
 include ('tarjetasDeCredito.php');
 include ('utiles.php');
@@ -27,20 +27,31 @@ echo '<pre>';
 echo $obtenerinfo;
 echo '<pre>';
 
-if ($isAdmin) {
-    // ///////////////////ACTIVARTARJETA//////////////
+// ///////////////////ACTIVARTARJETA//////////////
 
+if ($isAdmin) {
     $tag = 'Numero';
+
     $recuperarNumTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
     list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
 
     $tag = 'Activa';
     $recuperarEstadoTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
     list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
-    // echo $tarjetaEstado1.'<br>'.$tarjetaEstado2;
+
+    // BOTON//
+
+    if (isset($_POST["boton"])) {
+
+        activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1);
+        header(("location:main.php"));
+    }
+
     ?>
-<input type="button" value="Cambia!!!!!!!!!"
-	onClick="<?php activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2);?>location.reload(false)">
+<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
+	<input type="Submit" name="boton" value="Cambiar">
+</form>
 <?php
 }
 ?>
+

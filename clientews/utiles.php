@@ -22,20 +22,22 @@ function generarXml($idgrupo, $password)
     return $xml;
 }
 
-function generarXmlMod($idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2)
+function generarXmlMod($idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1)
 {
     $fecha = date('d-m-Y');
     $hora = date('H:i:s');
     $firma = hashMD5($fecha, $hora, $password);
+    $activeCard = '';
 
     switch ($tarjetaEstado1) {
         case 'No':
-            $xml = "<?xml version='1.0' encoding='UTF-8'?><MensajePeticion><Fecha>" . $fecha . "</Fecha><Hora>" . $hora . "</Hora><idgrupo>" . $idgrupo . "</idgrupo><Firma>" . $firma . "</Firma><Activecard>" . $tarjeta1 . "</Activecard></MensajePeticion>";
+            $activeCard = $tarjeta1;
             break;
         case 'Si':
-            $xml = "<?xml version='1.0' encoding='UTF-8'?><MensajePeticion><Fecha>" . $fecha . "</Fecha><Hora>" . $hora . "</Hora><idgrupo>" . $idgrupo . "</idgrupo><Firma>" . $firma . "</Firma><Activecard>" . $tarjeta2 . "</Activecard></MensajePeticion>";
+            $activeCard = $tarjeta2;
             break;
     }
+    $xml = "<?xml version='1.0' encoding='UTF-8'?><MensajePeticion><Fecha>" . $fecha . "</Fecha><Hora>" . $hora . "</Hora><idgrupo>" . $idgrupo . "</idgrupo><Firma>" . $firma . "</Firma><Activecard>" . $activeCard . "</Activecard></MensajePeticion>";
     return $xml;
 }
 
