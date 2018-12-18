@@ -3,7 +3,7 @@
 function obtenerClave($client, $idgrupo, $password)
 {
     // Variables
-    $xml = generarXml($idgrupo, $password, 0);
+    $xml = generarXml($idgrupo, $password);
     // pasando parametros de entrada que seran pasados hacia el metodo
     $param = array(
         'peticion' => $xml
@@ -35,7 +35,7 @@ function obtenerClave($client, $idgrupo, $password)
 
 function obtenerInfo($client, $key, $vector, $idgrupo, $password)
 {
-    $xml = generarXml($idgrupo, $password, 0);
+    $xml = generarXml($idgrupo, $password);
     // ENCRIPTAR MENSAJE
     $aes = encriptarAes($xml, $key, $vector);
 
@@ -53,9 +53,9 @@ function obtenerInfo($client, $key, $vector, $idgrupo, $password)
     return $aesinfo;
 }
 
-function activarTarjetas($client, $key, $vector, $idgrupo, $password)
+function activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2)
 {
-    $xml = generarXml($idgrupo, $password, 1);
+    $xml = generarXmlMod($idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2);
     // ENCRIPTAR MENSAJE
     $aes = encriptarAes($xml, $key, $vector);
 

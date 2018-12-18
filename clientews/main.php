@@ -22,13 +22,18 @@ list ($key, $vector) = $obtenerClave;
 // //////////////////OBTENERINFO//////////////////////
 
 $obtenerinfo = obtenerInfo($client, $key, $vector, $idgrupo, $password);
+echo '<pre>';
 echo $obtenerinfo;
-
+echo '<pre>';
 // ///////////////////ACTIVARTARJETA//////////////
 
-$tag='idgrupo';
-$numTarjeta=recuperarNumTarjetas($obtenerinfo, $tag);
+$tag = 'Numero';
+$recuperarNumTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
+list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
 
-activarTarjetas($client, $key, $vector, $idgrupo, $password);
-
+$tag = 'Activa';
+$recuperarEstadoTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
+list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
+// echo $tarjetaEstado1.'<br>'.$tarjetaEstado2;
 ?>
+<input type="button" value="Cambia!!!!!!!!!" onClick="<?php activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2);?>location.reload(false)">
