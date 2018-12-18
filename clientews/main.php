@@ -13,6 +13,7 @@ $client = new nusoap_client($wsdl, 'wsdl');
 
 $idgrupo = "G4";
 $password = "d8NvpzhM";
+$isAdmin = true;
 
 // //////////////////////OBTENERCLAVE//////////////////////////
 
@@ -25,15 +26,21 @@ $obtenerinfo = obtenerInfo($client, $key, $vector, $idgrupo, $password);
 echo '<pre>';
 echo $obtenerinfo;
 echo '<pre>';
-// ///////////////////ACTIVARTARJETA//////////////
 
-$tag = 'Numero';
-$recuperarNumTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
-list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
+if ($isAdmin) {
+    // ///////////////////ACTIVARTARJETA//////////////
 
-$tag = 'Activa';
-$recuperarEstadoTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
-list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
-// echo $tarjetaEstado1.'<br>'.$tarjetaEstado2;
+    $tag = 'Numero';
+    $recuperarNumTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
+    list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
+
+    $tag = 'Activa';
+    $recuperarEstadoTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
+    list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
+    // echo $tarjetaEstado1.'<br>'.$tarjetaEstado2;
+    ?>
+<input type="button" value="Cambia!!!!!!!!!"
+	onClick="<?php activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2);?>location.reload(false)">
+<?php
+}
 ?>
-<input type="button" value="Cambia!!!!!!!!!" onClick="<?php activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1, $tarjetaEstado2);?>location.reload(false)">
