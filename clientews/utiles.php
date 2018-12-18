@@ -41,48 +41,48 @@ function generarXmlMod($idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado
     return $xml;
 }
 
-function recuperarNumTarjetas($obtenerinfo, $tag)
+function recuperarInfoTag($obtenerinfo, $tag)
 {
     $DOM = new DOMDocument('1.0', 'utf-8');
     $DOM->loadXML($obtenerinfo);
-    $tarjeta1 = "";
-    $tarjeta2 = "";
+    $info1 = "";
+    $info2 = "";
     $numerar = 0;
-    foreach ($DOM->getElementsByTagName($tag) as $tarjet) {
+    foreach ($DOM->getElementsByTagName($tag) as $info) {
         if ($numerar == 0) {
-            $tarjeta1 = $tarjet->nodeValue;
+            $info1 = $info->nodeValue;
         }
         if ($numerar == 1) {
-            $tarjeta2 = $tarjet->nodeValue;
+            $info2 = $info->nodeValue;
         }
         $numerar ++;
     }
     return array(
-        $tarjeta1,
-        $tarjeta2
+        $info1,
+        $info2
     );
 }
 
-function recuperarEstadoTarjeta($obtenerinfo, $tag)
-{
-    $DOM = new DOMDocument('1.0', 'utf-8');
-    $DOM->loadXML($obtenerinfo);
-    $tarjeta1 = "";
-    $tarjeta2 = "";
-    $numerar = 0;
-    foreach ($DOM->getElementsByTagName($tag) as $tarjet) {
-        if ($numerar == 0) {
-            $tarjeta1 = $tarjet->nodeValue;
-        }
-        if ($numerar == 1) {
-            $tarjeta2 = $tarjet->nodeValue;
-        }
-        $numerar ++;
-    }
-    return array(
-        $tarjeta1,
-        $tarjeta2
-    );
-}
+// function recuperarEstadoTarjeta($obtenerinfo, $tag)
+// {
+//     $DOM = new DOMDocument('1.0', 'utf-8');
+//     $DOM->loadXML($obtenerinfo);
+//     $tarjeta1 = "";
+//     $tarjeta2 = "";
+//     $numerar = 0;
+//     foreach ($DOM->getElementsByTagName($tag) as $tarjet) {
+//         if ($numerar == 0) {
+//             $tarjeta1 = $tarjet->nodeValue;
+//         }
+//         if ($numerar == 1) {
+//             $tarjeta2 = $tarjet->nodeValue;
+//         }
+//         $numerar ++;
+//     }
+//     return array(
+//         $tarjeta1,
+//         $tarjeta2
+//     );
+// }
 
 ?>

@@ -5,12 +5,13 @@ include ('tarjetasDeCredito.php');
 include ('utiles.php');
 include ('cripto.php');
 
-// url del webservice que invocaremos
+// Url del webservice que invocaremos
 $wsdl = "http://10.10.3.249:8080/CreditCards/services/CardDispatcher?wsdl";
 
-// instanciando un nuevo objeto cliente para consumir el webservice
+// Instanciando un nuevo objeto cliente para consumir el webservice
 $client = new nusoap_client($wsdl, 'wsdl');
 
+// Variables de cada grupo
 $idgrupo = "G4";
 $password = "d8NvpzhM";
 $isAdmin = true;
@@ -23,20 +24,21 @@ list ($key, $vector) = $obtenerClave;
 // //////////////////OBTENERINFO//////////////////////
 
 $obtenerinfo = obtenerInfo($client, $key, $vector, $idgrupo, $password);
-echo '<pre>';
+
+echo "<pre>";
 echo $obtenerinfo;
-echo '<pre>';
+echo "<pre>";
 
 // ///////////////////ACTIVARTARJETA//////////////
 
 if ($isAdmin) {
+    
     $tag = 'Numero';
-
-    $recuperarNumTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
+    $recuperarNumTarjetas = recuperarInfoTag($obtenerinfo, $tag);
     list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
 
     $tag = 'Activa';
-    $recuperarEstadoTarjetas = recuperarNumTarjetas($obtenerinfo, $tag);
+    $recuperarEstadoTarjetas = recuperarInfoTag($obtenerinfo, $tag);
     list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
 
     // BOTON//
