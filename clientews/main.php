@@ -11,36 +11,40 @@ $wsdl = "http://10.10.3.249:8080/CreditCards/services/CardDispatcher?wsdl";
 // Instanciando un nuevo objeto cliente para consumir el webservice
 $client = new nusoap_client($wsdl, 'wsdl');
 
-// Variables de cada grupo
+// /////////////////////VARIABLES//////////////////////////
 $idgrupo = "G4";
 $password = "d8NvpzhM";
 $isAdmin = true;
 
 // //////////////////////OBTENERCLAVE//////////////////////////
-
 $obtenerClave = obtenerClave($client, $idgrupo, $password);
 list ($key, $vector) = $obtenerClave;
 
 // //////////////////OBTENERINFO//////////////////////
-
 $obtenerinfo = obtenerInfo($client, $key, $vector, $idgrupo, $password);
 
-echo "<pre>";
-echo $obtenerinfo;
-echo "<pre>";
+// /////////////////RECUPERAR INFO DE TAGS//////////////////
+$tag = 'Caducidad';
+$recuperarCadTarjetas = recuperarInfoTag($obtenerinfo, $tag);
+list ($caducidad1, $caducidad2) = $recuperarCadTarjetas;
+
+$tag = 'Numero';
+$recuperarNumTarjetas = recuperarInfoTag($obtenerinfo, $tag);
+list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
+
+$tag = 'Activa';
+$recuperarEstadoTarjetas = recuperarInfoTag($obtenerinfo, $tag);
+list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
+
+// ///////////////////MOSTRAR INFORMACION/////////////////
+echo '<pre>';
+echo '<b>Tarjeta 1: </b><br>   Activa: '.$tarjetaEstado1.'<br>   Caducidad: '.$caducidad1.'<br>   Num. Tarjeta: '.$tarjeta1.'<br>';
+echo '<br><b>Tarjeta 2: </b><br>   Activa: '.$tarjetaEstado2.'<br>   Caducidad: '.$caducidad2.'<br>   Num. Tarjeta: '.$tarjeta2;
+echo '<pre>';
 
 // ///////////////////ACTIVARTARJETA//////////////
-
 if ($isAdmin) {
     
-    $tag = 'Numero';
-    $recuperarNumTarjetas = recuperarInfoTag($obtenerinfo, $tag);
-    list ($tarjeta1, $tarjeta2) = $recuperarNumTarjetas;
-
-    $tag = 'Activa';
-    $recuperarEstadoTarjetas = recuperarInfoTag($obtenerinfo, $tag);
-    list ($tarjetaEstado1, $tarjetaEstado2) = $recuperarEstadoTarjetas;
-
     // BOTON//
 
     if (isset($_POST["boton"])) {

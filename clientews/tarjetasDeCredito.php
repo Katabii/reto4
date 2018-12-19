@@ -16,9 +16,6 @@ function obtenerClave($client, $idgrupo, $password)
     if ($client->fault) { // si
         $error = $client->getError();
         if ($error) { // Hubo algun error
-                      // echo 'Error:' . $error;
-                      // echo 'Error2:' . $error->faultactor;
-                      // echo 'Error3:' . $error->faultdetail;faultstring
             echo 'Error:  ' . $client->faultstring;
         }
 

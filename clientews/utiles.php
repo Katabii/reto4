@@ -62,27 +62,4 @@ function recuperarInfoTag($obtenerinfo, $tag)
         $info2
     );
 }
-
-// function recuperarEstadoTarjeta($obtenerinfo, $tag)
-// {
-//     $DOM = new DOMDocument('1.0', 'utf-8');
-//     $DOM->loadXML($obtenerinfo);
-//     $tarjeta1 = "";
-//     $tarjeta2 = "";
-//     $numerar = 0;
-//     foreach ($DOM->getElementsByTagName($tag) as $tarjet) {
-//         if ($numerar == 0) {
-//             $tarjeta1 = $tarjet->nodeValue;
-//         }
-//         if ($numerar == 1) {
-//             $tarjeta2 = $tarjet->nodeValue;
-//         }
-//         $numerar ++;
-//     }
-//     return array(
-//         $tarjeta1,
-//         $tarjeta2
-//     );
-// }
-
 ?>
