@@ -5,15 +5,15 @@ include ('tarjetasDeCredito.php');
 include ('utiles.php');
 include ('cripto.php');
 
-// Url del webservice que invocaremos
+//Url del webservice que invocaremos
 $wsdl = "http://10.10.3.249:8080/CreditCards/services/CardDispatcher?wsdl";
 
-// Instanciando un nuevo objeto cliente para consumir el webservice
+//Instanciando un nuevo objeto cliente para consumir el webservice
 $client = new nusoap_client($wsdl, 'wsdl');
 
 // /////////////////////VARIABLES//////////////////////////
-$idgrupo = "G4";
-$password = "d8NvpzhM";
+$idgrupo = "G4"; //Cambiar ID cada Grupo
+$password = "d8NvpzhM"; //Cambiar Contraseña cada Grupo
 $isAdmin = true;
 
 // //////////////////////OBTENERCLAVE//////////////////////////
@@ -46,13 +46,11 @@ echo '<pre>';
 if ($isAdmin) {
     
     // BOTON//
-
     if (isset($_POST["boton"])) {
 
         activarTarjetas($client, $key, $vector, $idgrupo, $password, $tarjeta1, $tarjeta2, $tarjetaEstado1);
         header(("location:main.php"));
     }
-
     ?>
 <form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 	<input type="Submit" name="boton" value="Cambiar">
